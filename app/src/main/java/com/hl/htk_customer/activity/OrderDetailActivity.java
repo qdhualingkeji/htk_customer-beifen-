@@ -577,6 +577,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 showMessage(commonMsg.getMessage());
 
                 hideChangeDialog();
+                ivCallShop.setVisibility(TextView.INVISIBLE);//确认收货后就不能重复确认了，隐藏按钮
             }
         });
 
