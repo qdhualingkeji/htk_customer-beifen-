@@ -101,6 +101,8 @@ public class HomeAddressActivity extends BaseActivity implements View.OnClickLis
                     app.getDefaultAddress().setAddressId(item.getAddressId());
                     app.getDefaultAddress().setUserName(item.getUserName());
                     app.getDefaultAddress().setPhoneNumber(item.getPhone());
+                    app.getDefaultAddress().setLongitude(item.getLongitude());
+                    app.getDefaultAddress().setLatitude(item.getLatitude());
                     app.getDefaultAddress().setLocation(item.getLocation());
                     app.getDefaultAddress().setAddress(item.getAddress());
                     app.getDefaultAddress().setSex(item.getSex());

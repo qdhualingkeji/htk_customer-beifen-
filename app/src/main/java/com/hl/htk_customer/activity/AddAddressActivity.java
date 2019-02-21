@@ -73,6 +73,8 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
     private String phone = "";
     private String location = "";
     private String address = "";
+    private float longitude;
+    private float latitude;
 
     private final int REQUEST_CODE = 102;
 
@@ -94,6 +96,8 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
         addressId = item.getAddressId();
         etName.setText(item.getUserName());
         etPhoneNumber.setText(item.getPhone() + "");
+        longitude=item.getLongitude();
+        latitude=item.getLatitude();
         tvAddress1.setText(item.getLocation());
         address2.setText(item.getAddress());
         sex = item.getSex();
@@ -202,6 +206,8 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
         params.put("userName", userName);
         params.put("sex", sex);
         params.put("phone", Long.parseLong(phone));
+        params.put("longitude", longitude);
+        params.put("latitude", latitude);
         params.put("location", location);
         params.put("address", address);
 
@@ -243,6 +249,8 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
         params.put("userName", userName);
         params.put("sex", sex);
         params.put("phone", Long.parseLong(phone));
+        params.put("longitude", longitude);
+        params.put("latitude", latitude);
         params.put("location", location);
         params.put("address", address);
 
@@ -278,6 +286,8 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == 101){
+            longitude = (float) data.getDoubleExtra("longitude",0);
+            latitude = (float) data.getDoubleExtra("latitude",0);
             String address = data.getStringExtra("address");
             tvAddress1.setText(address);
         }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -281,8 +282,10 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
                             defaultAddress.getLocation() + defaultAddress.getAddress(),
                             String.valueOf(defaultAddress.getPhoneNumber()),
                             defaultAddress.getUserName(),
-                            MyApplication.getmAMapLocation().getLongitude(),
-                            MyApplication.getmAMapLocation().getLatitude(),
+                            //MyApplication.getmAMapLocation().getLongitude(),
+                            (double)defaultAddress.getLongitude(),
+                            //MyApplication.getmAMapLocation().getLatitude(),
+                            (double)defaultAddress.getLatitude(),
                             defaultAddress.getSex(), tvSubmit,etMark.getText().toString());
                     pay.pay();
                 } else {

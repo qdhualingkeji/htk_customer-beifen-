@@ -3,6 +3,7 @@ package com.hl.htk_customer.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.services.core.AMapException;
+import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
@@ -144,7 +146,12 @@ public class AllLocationActivity extends BaseActivity
 
         PoiItem item1 = (PoiItem) nearAddressAdapter.getItem(position);
         EventBus.getDefault().post(new EventAddressEntity(item1.getTitle()));
-        setResult(101 , new Intent().putExtra( "address" , item1.getTitle()));
+        Intent intent=new Intent();
+        LatLonPoint latLonPoint = item1.getLatLonPoint();
+        intent.putExtra("longitude", latLonPoint.getLongitude());
+        intent.putExtra("latitude", latLonPoint.getLatitude());
+        intent.putExtra( "address" , item1.getTitle());
+        setResult(101 , intent);
         finish();
     }
 
@@ -154,6 +161,7 @@ public class AllLocationActivity extends BaseActivity
             if (poiResult != null && poiResult.getQuery() != null) {
                 if (poiResult.getQuery().equals(mQuery)) {
                     List<PoiItem> poiItems = poiResult.getPois();
+                    //Log.e("poiItem0===",""+poiItems.get(0).getLatLonPoint().getLongitude()+","+poiItems.get(0).getLatLonPoint().getLatitude()+","+poiItems.get(0).getTitle());
                     if (poiItems != null && poiItems.size() > 0) {
                         nearAddressAdapter.setData(poiItems);
                     } else {

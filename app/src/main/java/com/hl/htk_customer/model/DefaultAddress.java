@@ -3,6 +3,7 @@ package com.hl.htk_customer.model;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 /**
  * Created by Administrator on 2017/6/26.
@@ -16,6 +17,8 @@ public class DefaultAddress {
     private String location = "";
     private String address = "";
     private long phoneNumber;
+    private float longitude;
+    private float latitude;
 
     /**
      * @author 马鹏昊
@@ -110,5 +113,24 @@ public class DefaultAddress {
         mEditor.commit();
     }
 
+    public float getLongitude() {
+        longitude = mSharedPreferences.getFloat("defaultLongitude", 0);
+        return longitude;
+    }
+
+    public void setLongitude(float defaultLongitude) {
+        mEditor.putFloat("defaultLongitude", defaultLongitude);
+        mEditor.commit();
+    }
+
+    public float getLatitude() {
+        latitude = mSharedPreferences.getFloat("defaultLatitude", 0);
+        return latitude;
+    }
+
+    public void setLatitude(float defaultLatitude) {
+        mEditor.putFloat("defaultLatitude", defaultLatitude);
+        mEditor.commit();
+    }
 
 }
