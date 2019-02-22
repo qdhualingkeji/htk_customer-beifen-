@@ -3,6 +3,7 @@ package com.hl.htk_customer.adapter;
 import android.net.Uri;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -32,6 +33,8 @@ public class RecommendShopListAdapter extends BaseQuickAdapter<BestShopEntity.Da
                 .setText(R.id.tv_sellNum , String.format("月售%1$s单" , item.getMonthlySalesVolume()))
                 .addOnClickListener(R.id.iv_collection);
 
+        //Log.e("getLatitude===",""+item.getLatitude());
+        //Log.e("getLongitude===",""+item.getLongitude());
         float distance = LocationUtils.getDistance(item.getLatitude(), item.getLongitude());
         if (distance == 0){
             helper.setText(R.id.tv_distance , "未知");

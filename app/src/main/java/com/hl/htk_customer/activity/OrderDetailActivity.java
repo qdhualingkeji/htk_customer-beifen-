@@ -174,6 +174,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         orderId = getIntent().getIntExtra("orderId", -1);
 
         jsonProductList = getIntent().getStringExtra("jsonProductList");
+        Log.e("jsonProductList===",""+jsonProductList);
 
         ivHead.setImageURI(Uri.parse(new UserInfoManager(mContext).getAvaUrl()));
         llReturn.setOnClickListener(this);
