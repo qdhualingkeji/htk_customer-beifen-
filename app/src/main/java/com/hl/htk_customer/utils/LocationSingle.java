@@ -94,13 +94,7 @@ public class LocationSingle {
             } else {
 
                 //每次定位成功将定位信息保存
-<<<<<<< HEAD
                 Log.e("定位===",location.getLatitude()+","+location.getLongitude());
-                Log.e("location1===",""+location);
-=======
-                //Log.e("定位===",location.getLatitude()+","+location.getLongitude());
-                //Log.e("location1===",""+location);
->>>>>>> 2af3e2d610a175b2caceaa4e69acfc1f00335c41
                 LocationInfoManager.setLocation(location);
 
                 //兴趣点（详细地址）
