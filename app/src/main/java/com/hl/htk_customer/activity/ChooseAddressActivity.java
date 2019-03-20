@@ -258,6 +258,10 @@ public class ChooseAddressActivity extends BaseActivity
                     if (poiItems != null && poiItems.size() > 0) {
                         hideLoadingDialog();
                         nearAddressAdapter.setData(poiItems);
+                        for (int i=0;i<poiItems.size();i++){
+                            PoiItem poiItem = poiItems.get(i);
+                            //Log.e("poiItem===",""+poiItem.getTitle()+","+poiItem.getAdName()+","+poiItem.getLatLonPoint());
+                        }
                     } else {
                         Toast.makeText(this, "无搜索结果", Toast.LENGTH_SHORT).show();
                     }

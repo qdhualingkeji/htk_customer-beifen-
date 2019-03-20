@@ -124,7 +124,7 @@ public class DingDanWaiMaiFragment extends BaseFragment implements AdapterView.O
 
                 for (int i = 0; i < item.getProductList().size(); i++) {
                     WmOrderListEntity.DataBean.ProductListBean productListBean = item.getProductList().get(i);
-                    productList.add(new ShopProduct(productListBean.getProductName(), productListBean.getQuantity(), productListBean.getPrice() + "", productListBean.getProductId()));
+                    productList.add(new ShopProduct(productListBean.getProductName(), productListBean.getQuantity(), productListBean.getPrice() + "", productListBean.getPriceCanhe() + "", productListBean.getProductId()));
                 }
 
 

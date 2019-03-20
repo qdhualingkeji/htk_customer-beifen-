@@ -217,6 +217,7 @@ public class WmOrderListEntity {
             private String productName;
             private int quantity;
             private double price;
+            private double priceCanhe;
             private int productId;
 
             public String getProductName() {
@@ -241,6 +242,14 @@ public class WmOrderListEntity {
 
             public void setPrice(double price) {
                 this.price = price;
+            }
+
+            public double getPriceCanhe() {
+                return priceCanhe;
+            }
+
+            public void setPriceCanhe(double priceCanhe) {
+                this.priceCanhe = priceCanhe;
             }
 
             public int getProductId() {

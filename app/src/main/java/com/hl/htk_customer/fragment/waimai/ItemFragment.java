@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,7 @@ import com.hl.htk_customer.adapter.wm.TestSectionedAdapter;
 import com.hl.htk_customer.assistant.ShopToDetailListener;
 import com.hl.htk_customer.assistant.onCallBackListener;
 import com.hl.htk_customer.base.BaseFragment;
+import com.hl.htk_customer.entity.ShopDeliveryFeeEntity;
 import com.hl.htk_customer.entity.ShopGoodsEntity;
 import com.hl.htk_customer.model.ProductType;
 import com.hl.htk_customer.model.ShopProduct;
@@ -151,6 +153,8 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
 
     private ShopAdapter shopAdapter;
 
+    private ShopDeliveryFeeEntity shopDeliveryFeeEntity;
+
     /*
     * 店铺id
     * */
@@ -163,6 +167,10 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
      * 餐盒费
      */
     private double priceCanheSum = 0.0;
+    /**
+     * 配送费
+     */
+    private String deliveryFeeListStr;
 
     private Handler myHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -213,6 +221,37 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
     private void getDatas(ShopGoodsEntity shopGoodsEntity) {
         getData(shopGoodsEntity);
         initData();
+        getDeliveryFee(shopId);
+    }
+
+    private void getDeliveryFee(int shopId) {
+        RequestParams params = AsynClient.getRequestParams();
+        params.put("shopId", shopId);
+        AsynClient.post(MyHttpConfing.deliveryFeeList, getActivity(), params, new GsonHttpResponseHandler() {
+            @Override
+            protected Object parseResponse(String rawJsonData) throws Throwable {
+                return null;
+            }
+
+            @Override
+            public void onFailure(int statusCode, String rawJsonData, Object errorResponse) {
+                UiFormat.tryRequest(rawJsonData);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, String rawJsonResponse, Object response) {
+
+                Log.i(TAG , rawJsonResponse);
+                Gson gson = new Gson();
+                shopDeliveryFeeEntity = gson.fromJson(rawJsonResponse, ShopDeliveryFeeEntity.class);
+
+                if (shopDeliveryFeeEntity.getCode() == 100) {
+                    List<ShopDeliveryFeeEntity.DataBean> deliveryFeeList = shopDeliveryFeeEntity.getData();
+                    Gson deliveryFeeGson = new Gson();
+                    deliveryFeeListStr = deliveryFeeGson.toJson(deliveryFeeList);
+                }
+            }
+        });
     }
 
     public List<ProductType> getData(ShopGoodsEntity shopGoodsEntity) {
@@ -437,6 +476,7 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
          * @desc 点击查看商品详情
          * @date 2018-4-4
          */
+
         dialog = new AlertDialog.Builder(getActivity()).setTitle("商品详情").create();
         v = View.inflate(getActivity(), R.layout.product_detail, null);
         dialog.setView(v);
@@ -446,6 +486,18 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
                 TextView textView_Name = view.findViewById(R.id.name);
                 TextView textView_Price = view.findViewById(R.id.prise);
                 String productName = textView_Name.getText().toString();
+
+                /*
+                TextView title = new TextView(getActivity());
+                title.setText(productName);
+                title.setPadding(10, 10, 10, 10);
+                title.setGravity(Gravity.CENTER);
+                title.setTextColor(getResources().getColor(R.color.black));
+                title.setTextSize(23);
+                dialog.setCustomTitle(title);
+                */
+                dialog.setTitle(productName);
+
                 String str = textView_Price.getText().toString();
                 String priceStr = str.substring(1,str.length());
                 float price = Float.parseFloat(priceStr);
@@ -718,8 +770,10 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
                 bundle.putInt("shopId", shopId);
                 bundle.putDouble("price", sum);
                 bundle.putDouble("priceCanhe", priceCanheSum);
-                double deliveryFee = getActivity().getIntent().getDoubleExtra("deliveryFee", 0);
-                bundle.putDouble("deliveryFee", deliveryFee);
+                //double deliveryFee = getActivity().getIntent().getDoubleExtra("deliveryFee", 0);
+                //bundle.putDouble("deliveryFee", deliveryFee);
+                Log.e("deliveryFeeListStr===",""+deliveryFeeListStr);
+                bundle.putString("deliveryFee" , deliveryFeeListStr);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;

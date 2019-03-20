@@ -13,22 +13,33 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.hl.htk_customer.R;
 import com.hl.htk_customer.adapter.OrderItemDetailAdapter;
 import com.hl.htk_customer.base.BaseActivity;
 import com.hl.htk_customer.dialog.OneLineDialog;
+import com.hl.htk_customer.entity.ShopDeliveryFeeEntity;
 import com.hl.htk_customer.model.DefaultAddress;
 import com.hl.htk_customer.model.ShopInfoModel;
 import com.hl.htk_customer.model.ShopProduct;
 import com.hl.htk_customer.model.UserInfoManager;
 import com.hl.htk_customer.utils.Arith;
+import com.hl.htk_customer.utils.LocationUtils;
 import com.hl.htk_customer.utils.MyApplication;
+import com.hl.htk_customer.utils.MyUtils;
 import com.hl.htk_customer.utils.pay.AliPayWaiMai;
 import com.hl.htk_customer.utils.pay.PayStyle;
 import com.hl.htk_customer.utils.pay.WXPayWaiMai;
 import com.hl.htk_customer.widget.MyListView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
@@ -84,6 +95,7 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
     private double mPriceCanhe = 0.0;//餐盒费
     private double mDeliveryFee = 0.0;//配送费用
     private double mVouchers = 0.0;//代金券
+    private List<ShopDeliveryFeeEntity.DataBean> deliveryFeeList;
     OrderItemDetailAdapter orderItemDetailAdapter;
 
     private List<AliPayWaiMai.ProductList> products = new ArrayList<>();
@@ -117,6 +129,7 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
         initDialog();
         initItem();
         initAddress();
+        jiSuanDeliveryFee();
     }
 
 
@@ -152,13 +165,18 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
                     productList.get(i).getGoods(),
                     productList.get(i).getNumber(),
                     Double.valueOf(productList.get(i).getPrice()),
+                    Double.valueOf(productList.get(i).getPriceCanhe()),
                     productList.get(i).getId()
             ));
         }
 
         shopId = bundle.getInt("shopId");
         mPriceCanhe = bundle.getDouble("priceCanhe");
-        mDeliveryFee = bundle.getDouble("deliveryFee");
+        String deliveryFeeStr = bundle.getString("deliveryFee");
+
+        Gson gson = new Gson();
+        ShopDeliveryFeeEntity.DataBean[] deliveryFeeArr = gson.fromJson(deliveryFeeStr, ShopDeliveryFeeEntity.DataBean[].class);
+        deliveryFeeList = Arrays.asList(deliveryFeeArr);
         goodsPrice = bundle.getDouble("price");
         orderItemDetailAdapter = new OrderItemDetailAdapter(this);
         listViewItem.setAdapter(orderItemDetailAdapter);
@@ -167,7 +185,6 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
         sdvLogo.setImageURI(Uri.parse(ShopInfoModel.getUrl()));
         tvShopName.setText(ShopInfoModel.getShopName());
         mTvPriceCanheNum.setText(String.valueOf(mPriceCanhe));
-        mTvDeliveryFeeNum.setText(String.valueOf(mDeliveryFee));
 
     }
 
@@ -219,11 +236,32 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
 
     }
 
+    /***
+     * 计算配送费
+     */
+    private void jiSuanDeliveryFee(){
+        float latitude = app.getDefaultAddress().getLatitude();
+        float longitude = app.getDefaultAddress().getLongitude();
+        float distance = LocationUtils.getDistance(latitude, longitude);
+        distance = distance/1000;
+        Log.e("distance===",""+distance);
+        for(int i=0;i<deliveryFeeList.size();i++){
+            ShopDeliveryFeeEntity.DataBean shopDeliveryFee = deliveryFeeList.get(i);
+            double minRadii = shopDeliveryFee.getMinRadii();
+            double maxRadii = shopDeliveryFee.getMaxRadii();
+            if(distance>=minRadii&&distance<maxRadii){
+                mDeliveryFee = shopDeliveryFee.getDeliveryFee();
+                break;
+            }
+        }
+        mTvDeliveryFeeNum.setText(String.valueOf(mDeliveryFee));
+    }
 
     @Override
     protected void onRestart() {
         super.onRestart();
         initAddress();
+        jiSuanDeliveryFee();
     }
 
     @Override
@@ -260,7 +298,7 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
                  * @date 2018-4-24
                  */
                 String showInfo = tvUserInfo.getText().toString();
-                if (TextUtils.isEmpty(showInfo)) {
+                if (TextUtils.isEmpty(showInfo)||"请选择收货地址".equals(showInfo)) {
                     showMessage("请选择收货地址");
                     return;
                 }

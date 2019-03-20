@@ -50,10 +50,11 @@ public class ShopProduct implements Parcelable {
         this.desc = desc;
     }
 
-    public ShopProduct(String goods, int number, String price, int id) {
+    public ShopProduct(String goods, int number, String price, String priceCanhe, int id) {
 
         this.goods = goods;
         this.price = price;
+        this.priceCanhe = priceCanhe;
         this.number = number;
         this.id = id;
 
@@ -164,6 +165,7 @@ public class ShopProduct implements Parcelable {
         dest.writeInt(id);
         dest.writeString(shopName);
         dest.writeString(price);
+        dest.writeString(priceCanhe);
         dest.writeString(goods);
         dest.writeString(picture);
         dest.writeString(type);
@@ -179,6 +181,7 @@ public class ShopProduct implements Parcelable {
             shopProduct.id = source.readInt();
             shopProduct.shopName = source.readString();
             shopProduct.price = source.readString();
+            shopProduct.priceCanhe = source.readString();
             shopProduct.goods = source.readString();
             shopProduct.picture = source.readString();
             shopProduct.type = source.readString();

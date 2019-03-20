@@ -285,7 +285,7 @@ public class DingDanFragment extends BaseFragment {
         List<ShopProduct> productList1 = new ArrayList<ShopProduct>();
         for (int i = 0; i < productList.size(); i++) {
             OrderListEntity.DataBean.ProductListBean shopProduct = productList.get(i);
-            productList1.add(new ShopProduct(shopProduct.getProductName(), shopProduct.getQuantity(), String.valueOf(shopProduct.getPrice()), shopProduct.getProductId()));
+            productList1.add(new ShopProduct(shopProduct.getProductName(), shopProduct.getQuantity(), String.valueOf(shopProduct.getPrice()), String.valueOf(shopProduct.getPriceCanhe()), shopProduct.getProductId()));
         }
         Intent intent = new Intent(mContext, WmShopDetailActivity.class);
         intent.putExtra("shopId", shopId);

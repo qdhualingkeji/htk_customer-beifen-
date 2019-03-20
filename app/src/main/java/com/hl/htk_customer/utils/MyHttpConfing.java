@@ -76,6 +76,7 @@ public class MyHttpConfing {
     public static final String searchShop = allUrl1 + "/getShopByCondition";  //搜索商铺
     public static final String bestShop = allUrl1 + "/getBestShop";   //推荐商家
     public static final String shopInfo = allUrl1 + "/getShopShowInfoById"; //店铺信息
+    public static final String deliveryFeeList = allUrl1 + "/getDeliveryFeeByShopId"; //配送费
     public static final String shopGoods = allUrl1 + "/getGoodsListByShopId"; //店铺菜单
     public static final String shopEvaluate = allUrl1 + "/getShopUserReviews";//评价
     public static final String shopListById = allUrl1 + "/getFocusShopListByCategoryId"; //根据分类获取店铺列表

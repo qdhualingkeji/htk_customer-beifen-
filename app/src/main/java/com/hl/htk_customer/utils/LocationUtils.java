@@ -154,7 +154,7 @@ public class LocationUtils {
     public synchronized static float getDistance(double latitude , double longitude){
         AMapLocation location = LocationInfoManager.getLocation();
 
-        Log.e("location2===",""+location);
+        //Log.e("location2===",""+location);
         if (location != null && location.getLatitude() != 0 && location.getLongitude() != 0){
             //Log.e("Latitude,Longitude===",location.getLatitude()+","+location.getLongitude());
             //Log.e("Latitude1,Longitude1===",latitude+","+longitude);

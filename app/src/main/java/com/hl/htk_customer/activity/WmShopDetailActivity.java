@@ -40,6 +40,8 @@ import com.hl.htk_customer.utils.MyUtils;
 import com.hl.htk_customer.utils.UiFormat;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -212,13 +214,10 @@ public class WmShopDetailActivity extends BaseActivity implements View.OnClickLi
 
     }
 
-
     private void initData(final ShopInfoEntity shopInfoEntity) {
 
         ShopInfoModel.setShopName(shopInfoEntity.getData().getShopName());
         ShopInfoModel.setUrl(shopInfoEntity.getData().getLogoUrl());
-
-        getIntent().putExtra("deliveryFee" , shopInfoEntity.getData().getDeliveryFee());
 
         if (shopInfoEntity.getData().getState() == 0) {
             //休息中
@@ -242,11 +241,19 @@ public class WmShopDetailActivity extends BaseActivity implements View.OnClickLi
 
         tvDeliveryFee.setText(shopInfoEntity.getData().getShopName());
 
+        /*
         double deliveryFee = shopInfoEntity.getData().getDeliveryFee();
         if (deliveryFee == 0) {
             tv_gonggao.setText(getResources().getText(R.string.free));
         } else {
             tv_gonggao.setText("配送费：" + deliveryFee + "元");
+        }
+        */
+        String gonggao = shopInfoEntity.getData().getShopBulletin().getContent();
+        if (TextUtils.isEmpty(gonggao)) {
+            tv_gonggao.setText("暂无公告");
+        } else {
+            tv_gonggao.setText(gonggao);
         }
 
         List<ShopInfoEntity.DataBean.ShopBulletinBean> shopConsumptionActivities = shopInfoEntity.getData().getShopConsumptionActivities();

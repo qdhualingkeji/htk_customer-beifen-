@@ -165,6 +165,7 @@ public class AllLocationActivity extends BaseActivity
                     if (poiItems != null && poiItems.size() > 0) {
                         nearAddressAdapter.setData(poiItems);
                     } else {
+                        nearAddressAdapter.setData(poiItems);
                         Toast.makeText(this, "无搜索结果", Toast.LENGTH_SHORT).show();
                     }
                 }

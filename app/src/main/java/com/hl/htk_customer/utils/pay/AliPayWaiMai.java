@@ -217,7 +217,7 @@ public class AliPayWaiMai implements PayStyle {
                     final String orderInfo = alPayEntity.getData().getAliPayResponseBody();
                     orderNumber = alPayEntity.getData().getOrderNumber();
                     orderId = alPayEntity.getData().getOrderId();
-
+                    
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -302,12 +302,14 @@ public class AliPayWaiMai implements PayStyle {
         private String productName;
         private int quantity;
         private double price;
+        private double priceCanhe;
         private int productId;
 
-        public ProductList(String productName, int quantity, double price, int productId) {
+        public ProductList(String productName, int quantity, double price, double priceCanhe, int productId) {
             this.productName = productName;
             this.quantity = quantity;
             this.price = price;
+            this.priceCanhe = priceCanhe;
             this.productId = productId;
         }
     }

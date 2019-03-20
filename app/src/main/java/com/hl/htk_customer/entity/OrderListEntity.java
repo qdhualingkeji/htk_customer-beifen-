@@ -399,6 +399,7 @@ public class OrderListEntity {
             private String productName;
             private int quantity;
             private double price;
+            private double priceCanhe;
             private int productId;
             private int orderId;
 
@@ -424,6 +425,14 @@ public class OrderListEntity {
 
             public void setPrice(double price) {
                 this.price = price;
+            }
+
+            public double getPriceCanhe() {
+                return priceCanhe;
+            }
+
+            public void setPriceCanhe(double priceCanhe) {
+                this.priceCanhe = priceCanhe;
             }
 
             public int getProductId() {

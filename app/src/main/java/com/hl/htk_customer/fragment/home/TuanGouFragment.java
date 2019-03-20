@@ -182,12 +182,17 @@ public class TuanGouFragment extends BaseFragment implements View.OnClickListene
 
 //        getGuanggao();
 
-        String testUrl = "http://img5.imgtn.bdimg.com/it/u=2264841171,3908720706&fm=27&gp=0.jpg";
-        ImageLoadManager.getInstance().setImage(testUrl, mAdvertisingOne);
-        ImageLoadManager.getInstance().setImage(testUrl, mAdvertisingTwo);
-        ImageLoadManager.getInstance().setImage(testUrl, mAdvertisingThree);
-        ImageLoadManager.getInstance().setImage(testUrl, mAdvertisingFour);
-        ImageLoadManager.getInstance().setImage(testUrl, mAdvertisingFive);
+        //String testUrl = "http://img5.imgtn.bdimg.com/it/u=2264841171,3908720706&fm=27&gp=0.jpg";
+        String testUrlOne = "http://img1.imgtn.bdimg.com/it/u=1282290067,2091746976&fm=26&gp=0.jpg";
+        String testUrlTwo = "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2375253455,3320141287&fm=27&gp=0.jpg";
+        String testUrlThree = "http://img0.imgtn.bdimg.com/it/u=214436874,1551788094&fm=200&gp=0.jpg";
+        String testUrlFour = "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1888094103,833763113&fm=27&gp=0.jpg";
+        String testUrlFive = "https://ss0.baidu.com/73t1bjeh1BF3odCf/it/u=695710958,1372086883&fm=85&s=BC9A07D9723B17821490FC74030090D3";
+        ImageLoadManager.getInstance().setImage(testUrlOne, mAdvertisingOne);
+        ImageLoadManager.getInstance().setImage(testUrlTwo, mAdvertisingTwo);
+        ImageLoadManager.getInstance().setImage(testUrlThree, mAdvertisingThree);
+        ImageLoadManager.getInstance().setImage(testUrlFour, mAdvertisingFour);
+        ImageLoadManager.getInstance().setImage(testUrlFive, mAdvertisingFive);
 
     }
 
@@ -205,12 +210,13 @@ public class TuanGouFragment extends BaseFragment implements View.OnClickListene
     private void initViewPager() {
         myFragmentList = new ArrayList<>();
         myFragmentList.add(ProductFragment.newInstance(1, 1));
-        myFragmentList.add(ProductFragment.newInstance(2, 1));
+        //myFragmentList.add(ProductFragment.newInstance(2, 1));
         myPageAdapter = new MyPageAdapter(myFragmentList, getChildFragmentManager());
         mFunctionViewPager.setAdapter(myPageAdapter);
         mFunctionViewPager.setOffscreenPageLimit(2);
         mFunctionViewPager.setCurrentItem(0);
 
+        /*
         for (int i = 0; i < 2; i++) {
             RadioButton tempButton = new RadioButton(getActivity());
             tempButton.setButtonDrawable(android.R.color.transparent);
@@ -225,6 +231,7 @@ public class TuanGouFragment extends BaseFragment implements View.OnClickListene
         }
         //设置默认选中第一页
         rg.check(0);
+        */
 
         mFunctionViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

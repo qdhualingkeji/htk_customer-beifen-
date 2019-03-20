@@ -312,7 +312,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         List<WmOrderDetailEntity.DataBean.ProductListBean> productLists = wmOrderDetailEntity.getData().getProductList();
         for (int i = 0; i < productLists.size(); i++) {
             WmOrderDetailEntity.DataBean.ProductListBean productListBean = productLists.get(i);
-            productList.add(new ShopProduct(productListBean.getProductName(), productListBean.getQuantity(), productListBean.getPrice() + "", productListBean.getProductId()));
+            productList.add(new ShopProduct(productListBean.getProductName(), productListBean.getQuantity(), productListBean.getPrice() + "", productListBean.getPriceCanhe()+"", productListBean.getProductId()));
         }
         orderItemDetailAdapter.setData(productList);
 
@@ -475,12 +475,14 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
 
             @Override
             public void onFailure(int statusCode, String rawJsonData, Object errorResponse) {
+                //Log.e("rawJsonData===",""+rawJsonData);
                 UiFormat.tryRequest(rawJsonData);
                 hideChangeDialog();
             }
 
             @Override
             public void onSuccess(int statusCode, String rawJsonResponse, Object response) {
+                //Log.e("rawJsonResponse===",""+rawJsonResponse);
                 Log.i(MyHttpConfing.tag, rawJsonResponse);
 
                 Gson gson = new Gson();
@@ -534,7 +536,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
 
         for (int i = 0; i < productList.size(); i++) {
             ShopProduct shopProduct = productList.get(i);
-            productList1.add(new ShopProduct(shopProduct.getGoods(), shopProduct.getNumber(), shopProduct.getPrice(), shopProduct.getId()));
+            productList1.add(new ShopProduct(shopProduct.getGoods(), shopProduct.getNumber(), shopProduct.getPrice(), shopProduct.getPriceCanhe(), shopProduct.getId()));
         }
 
         Intent intent = new Intent(this, WmShopDetailActivity.class);
