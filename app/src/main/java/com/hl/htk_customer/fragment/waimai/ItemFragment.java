@@ -772,7 +772,7 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
                 bundle.putDouble("priceCanhe", priceCanheSum);
                 //double deliveryFee = getActivity().getIntent().getDoubleExtra("deliveryFee", 0);
                 //bundle.putDouble("deliveryFee", deliveryFee);
-                Log.e("deliveryFeeListStr===",""+deliveryFeeListStr);
+                //Log.e("deliveryFeeListStr===",""+deliveryFeeListStr);
                 bundle.putString("deliveryFee" , deliveryFeeListStr);
                 intent.putExtras(bundle);
                 startActivity(intent);

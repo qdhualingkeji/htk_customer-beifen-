@@ -22,6 +22,7 @@ public class MyHttpConfing {
 
     private static final String allUrl = baseUrl + "AccountMessage";
     private static final String allUrl1 = baseUrl + "shopDataAPI";
+    public static final String merchantAppUrl = baseUrl + "merchantAppAPI";
 
     /**
      * 会员尊享平台根url
@@ -257,6 +258,10 @@ public class MyHttpConfing {
      * 团购店铺相册
      */
     public static final String getTuanGouShopPhoto = allUrl1 + "/getShopAlbumList";
+    /**
+     * 给商家接单app端推送消息
+     */
+    public static final String sendNotification = merchantAppUrl + "/sendNotification";
 
 }
 

@@ -14,10 +14,13 @@ import com.google.gson.Gson;
 import com.hl.htk_customer.activity.ConfirmOrderActivity;
 import com.hl.htk_customer.activity.OrderDetailActivity;
 import com.hl.htk_customer.entity.AlPayEntity;
+import com.hl.htk_customer.entity.ShopInfoEntity;
 import com.hl.htk_customer.model.CommonMsg;
+import com.hl.htk_customer.model.ShopInfoModel;
 import com.hl.htk_customer.utils.AsynClient;
 import com.hl.htk_customer.utils.GsonHttpResponseHandler;
 import com.hl.htk_customer.utils.IPUtils;
+import com.hl.htk_customer.utils.JPushUtil;
 import com.hl.htk_customer.utils.MyHttpConfing;
 import com.hl.htk_customer.utils.UiFormat;
 import com.hl.htk_customer.wxapi.PayResult;
@@ -113,6 +116,9 @@ public class AliPayWaiMai implements PayStyle {
 
                         intent.putExtra("jsonProductList", mJsonProductList);
                         mContext.startActivity(intent);
+
+                        //支付成功后，给商家app接单端推送消息
+                        JPushUtil.sendNotification(mContext, ShopInfoModel.getMobilePhone());
 
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。

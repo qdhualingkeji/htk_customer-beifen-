@@ -8,6 +8,15 @@ public class ShopInfoModel {
 
     private  static  String  url = "";
     private static String  shopName = "";
+    private static String  mobilePhone = "";
+
+    public static String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public static void setMobilePhone(String mobilePhone) {
+        ShopInfoModel.mobilePhone = mobilePhone;
+    }
 
     public static String getUrl() {
         return url;

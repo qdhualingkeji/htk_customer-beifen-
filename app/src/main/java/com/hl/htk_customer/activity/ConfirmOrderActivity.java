@@ -244,7 +244,7 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
         float longitude = app.getDefaultAddress().getLongitude();
         float distance = LocationUtils.getDistance(latitude, longitude);
         distance = distance/1000;
-        Log.e("distance===",""+distance);
+        //Log.e("distance===",""+distance);
         for(int i=0;i<deliveryFeeList.size();i++){
             ShopDeliveryFeeEntity.DataBean shopDeliveryFee = deliveryFeeList.get(i);
             double minRadii = shopDeliveryFee.getMinRadii();
