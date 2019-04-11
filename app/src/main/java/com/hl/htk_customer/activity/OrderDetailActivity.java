@@ -23,12 +23,14 @@ import com.hl.htk_customer.entity.NormalEntity;
 import com.hl.htk_customer.entity.WmOrderDetailEntity;
 import com.hl.htk_customer.model.CommonMsg;
 import com.hl.htk_customer.model.OrderStateChangeEvent;
+import com.hl.htk_customer.model.ShopInfoModel;
 import com.hl.htk_customer.model.ShopProduct;
 import com.hl.htk_customer.model.TimeChangeEvent;
 import com.hl.htk_customer.model.UserInfoManager;
 import com.hl.htk_customer.service.OrderTimeService;
 import com.hl.htk_customer.utils.AsynClient;
 import com.hl.htk_customer.utils.GsonHttpResponseHandler;
+import com.hl.htk_customer.utils.JPushUtil;
 import com.hl.htk_customer.utils.MyHttpConfing;
 import com.hl.htk_customer.utils.MyUtils;
 import com.hl.htk_customer.utils.UiFormat;
@@ -489,6 +491,8 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 CommonMsg commonMsg = gson.fromJson(rawJsonResponse, CommonMsg.class);
 
                 showMessage(commonMsg.getMessage());
+
+                JPushUtil.sendNotification(OrderDetailActivity.this, ShopInfoModel.getMobilePhone(), "商家接单app", "外卖订单已取消", JPushUtil.CANNEL_ORDER);
 
                 hideChangeDialog();
             }

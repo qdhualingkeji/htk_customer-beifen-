@@ -118,7 +118,7 @@ public class AliPayWaiMai implements PayStyle {
                         mContext.startActivity(intent);
 
                         //支付成功后，给商家app接单端推送消息
-                        JPushUtil.sendNotification(mContext, ShopInfoModel.getMobilePhone());
+                        JPushUtil.sendNotification(mContext, ShopInfoModel.getMobilePhone(), "商家接单app", "外卖订单下单成功", JPushUtil.NEW_ORDER);
 
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。

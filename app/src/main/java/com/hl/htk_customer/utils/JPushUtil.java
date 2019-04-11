@@ -9,13 +9,16 @@ import com.loopj.android.http.RequestParams;
 
 public class JPushUtil {
 
-    public static void sendNotification(final Activity context, String mobilePhone){
+    public static final String NEW_ORDER="1";
+    public static final String CANNEL_ORDER="3";
+
+    public static void sendNotification(final Activity context, String mobilePhone, String title, String content, String actionName){
         RequestParams params = AsynClient.getRequestParams();
 
-        //params.put("userName", account);
-        //params.put("password", passWord);
         params.put("mobilePhone", mobilePhone);
-
+        params.put("title", title);
+        params.put("content", content);
+        params.put("actionName", actionName);
 
         AsynClient.post(MyHttpConfing.sendNotification, context, params, new GsonHttpResponseHandler() {
             @Override
