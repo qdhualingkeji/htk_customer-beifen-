@@ -95,6 +95,7 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
     private double mPriceCanhe = 0.0;//餐盒费
     private double mDeliveryFee = 0.0;//配送费用
     private double mVouchers = 0.0;//代金券
+    private boolean mAllowDelivery=false;
     private List<ShopDeliveryFeeEntity.DataBean> deliveryFeeList;
     OrderItemDetailAdapter orderItemDetailAdapter;
 
@@ -129,7 +130,6 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
         initDialog();
         initItem();
         initAddress();
-        jiSuanDeliveryFee();
     }
 
 
@@ -181,6 +181,7 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
         orderItemDetailAdapter = new OrderItemDetailAdapter(this);
         listViewItem.setAdapter(orderItemDetailAdapter);
         orderItemDetailAdapter.setData(productList);
+        jiSuanDeliveryFee();//计算配送费，必须在这里计算好，为下面显示总价做准备
         setTotalPriceText();
         sdvLogo.setImageURI(Uri.parse(ShopInfoModel.getUrl()));
         tvShopName.setText(ShopInfoModel.getShopName());
@@ -192,6 +193,7 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
      * 显示总价
      */
     private void setTotalPriceText() {
+        //Log.e("TotalPrice===",""+getTotalPrice());
         tvDaizhifu.setText(String.format("待支付￥ %1$.2f", getTotalPrice()));
         tvPrice.setText(String.format("待支付￥ %1$.2f", getTotalPrice()));
     }
@@ -202,6 +204,9 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
      * @return 总价
      */
     public double getTotalPrice() {
+        //Log.e("goodsPrice===",""+goodsPrice);
+        //Log.e("mPriceCanhe===",""+mPriceCanhe);
+        //Log.e("mDeliveryFee===",""+mDeliveryFee);
         double r = Arith.add(Arith.add(goodsPrice, mPriceCanhe), mDeliveryFee);
         return Arith.sub(r, mVouchers);
     }
@@ -240,6 +245,8 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
      * 计算配送费
      */
     private void jiSuanDeliveryFee(){
+        mDeliveryFee = 0.0;
+        mAllowDelivery=false;
         float latitude = app.getDefaultAddress().getLatitude();
         float longitude = app.getDefaultAddress().getLongitude();
         float distance = LocationUtils.getDistance(latitude, longitude);
@@ -249,8 +256,11 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
             ShopDeliveryFeeEntity.DataBean shopDeliveryFee = deliveryFeeList.get(i);
             double minRadii = shopDeliveryFee.getMinRadii();
             double maxRadii = shopDeliveryFee.getMaxRadii();
+            //Log.e("minRadii===",""+minRadii);
+            //Log.e("maxRadii===",""+maxRadii);
             if(distance>=minRadii&&distance<maxRadii){
                 mDeliveryFee = shopDeliveryFee.getDeliveryFee();
+                mAllowDelivery=true;
                 break;
             }
         }
@@ -260,8 +270,9 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void onRestart() {
         super.onRestart();
-        initAddress();
-        jiSuanDeliveryFee();
+        initAddress();//因为地址改变了，这里必须重新初始化地址栏
+        jiSuanDeliveryFee();//地址改变了、配送半径变了、配送费也跟着变了，必须重新计算配送费
+        setTotalPriceText();//配送费变了，必须重新显示总价
     }
 
     @Override
@@ -300,6 +311,10 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
                 String showInfo = tvUserInfo.getText().toString();
                 if (TextUtils.isEmpty(showInfo)||"请选择收货地址".equals(showInfo)) {
                     showMessage("请选择收货地址");
+                    return;
+                }
+                if(!mAllowDelivery){
+                    showMessage("不在配送范围内，不允许配送");
                     return;
                 }
 
