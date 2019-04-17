@@ -60,6 +60,8 @@ public class AliPayWaiMai implements PayStyle {
     private final String mJsonProductList;
     private Activity mContext;
     private String orderAmount;
+    private String priceCanhe;
+    private String deliveryFee;
     private String shopId;
 
     /**
@@ -134,10 +136,12 @@ public class AliPayWaiMai implements PayStyle {
         }
     };
 
-    public AliPayWaiMai(Activity context, String couponId, String orderAmount, String shopId, List<ProductList> list,
+    public AliPayWaiMai(Activity context, String couponId, String orderAmount, String priceCanhe, String deliveryFee, String shopId, List<ProductList> list,
                         String shippingAddress, String receivingCall, String receiptName, Double longitude, Double latitude, Integer sex, TextView submit, String remark) {
         this.mContext = context;
         this.orderAmount = orderAmount;
+        this.priceCanhe = priceCanhe;
+        this.deliveryFee = deliveryFee;
         this.shopId = shopId;
         this.shippingAddress = shippingAddress;
         this.receivingCall = receivingCall;
@@ -186,6 +190,8 @@ public class AliPayWaiMai implements PayStyle {
         params.put("jsonProductList", mJsonProductList);
         params.put("shopId", shopId);
         params.put("orderAmount", orderAmount);
+        params.put("priceCanhe", priceCanhe);
+        params.put("deliveryFee", deliveryFee);
         params.put("shippingAddress", shippingAddress);
         params.put("receivingCall", receivingCall);
         params.put("receiptName", receiptName);

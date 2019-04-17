@@ -331,7 +331,9 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
                         return;
                     }
                     String price = String.valueOf(p);
-                    PayStyle pay = new AliPayWaiMai(ConfirmOrderActivity.this, String.valueOf(mCouponId), price, String.valueOf(shopId), products,
+                    String priceCanhe = String.valueOf(mPriceCanhe);
+                    String deliveryFee = String.valueOf(mDeliveryFee);
+                    PayStyle pay = new AliPayWaiMai(ConfirmOrderActivity.this, String.valueOf(mCouponId), price, priceCanhe, deliveryFee, String.valueOf(shopId), products,
                             defaultAddress.getLocation() + defaultAddress.getAddress(),
                             String.valueOf(defaultAddress.getPhoneNumber()),
                             defaultAddress.getUserName(),
