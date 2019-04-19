@@ -171,7 +171,11 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
                     showMessage("请完整填写信息");
                     return;
                 }
-                if(TextUtils.isEmpty(location) && TextUtils.isEmpty(address)){
+                if(TextUtils.isEmpty(location)){
+                    showMessage("请选择地址");
+                    return;
+                }
+                if(TextUtils.isEmpty(address)){
                     showMessage("请填写地址信息");
                     return;
                 }
@@ -288,6 +292,8 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
         if (requestCode == REQUEST_CODE && resultCode == 101){
             longitude = (float) data.getDoubleExtra("longitude",0);
             latitude = (float) data.getDoubleExtra("latitude",0);
+            //Log.e("longitude===",""+longitude);
+            //Log.e("latitude===",""+latitude);
             String address = data.getStringExtra("address");
             tvAddress1.setText(address);
         }

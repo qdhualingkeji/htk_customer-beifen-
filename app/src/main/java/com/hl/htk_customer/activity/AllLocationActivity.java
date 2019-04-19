@@ -34,6 +34,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2017/6/23.
@@ -69,6 +70,7 @@ public class AllLocationActivity extends BaseActivity
 
     private ArrayList<String> items = new ArrayList<>() ;
     private LocationSearchUtils locationSearchUtils;
+    private final int REQUEST_CODE = 102;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +143,15 @@ public class AllLocationActivity extends BaseActivity
 
     }
 
+    @OnClick(R.id.tv_otherAddress)
+    public void onViewClicked(View v) {
+        switch (v.getId()) {
+            case R.id.tv_otherAddress:
+                startActivityForResult(new Intent(AllLocationActivity.this, OtherLocationActivity.class) , REQUEST_CODE);
+                break;
+        }
+    }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -197,5 +208,18 @@ public class AllLocationActivity extends BaseActivity
         group.check(checkedId);
         locationSearchUtils.doSearchQuery();
         mQuery = locationSearchUtils.getQuery();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == 101){
+            Intent intent=new Intent();
+            intent.putExtra("longitude", data.getDoubleExtra("longitude", 0));
+            intent.putExtra("latitude", data.getDoubleExtra("latitude", 0));
+            intent.putExtra( "address" , data.getStringExtra("address"));
+            setResult(101 , intent);
+            finish();
+        }
     }
 }
