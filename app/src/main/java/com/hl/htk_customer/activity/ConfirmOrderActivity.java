@@ -12,6 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.maps2d.AMapUtils;
+import com.amap.api.maps2d.model.LatLng;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -249,7 +251,8 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
         mAllowDelivery=false;
         float latitude = app.getDefaultAddress().getLatitude();
         float longitude = app.getDefaultAddress().getLongitude();
-        float distance = LocationUtils.getDistance(latitude, longitude);
+        //float distance = LocationUtils.getDistance(latitude, longitude);
+        float distance = getDistance(latitude, longitude);
         distance = distance/1000;
         //Log.e("distance===",""+distance);
         for(int i=0;i<deliveryFeeList.size();i++){
@@ -265,6 +268,21 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
             }
         }
         mTvDeliveryFeeNum.setText(String.valueOf(mDeliveryFee));
+    }
+
+    /**
+     * 获取两点距离
+     */
+    private float getDistance(float latitude, float longitude){
+        //Log.e("location2===",""+location);
+        if (ShopInfoModel.getLatitude() != 0 && ShopInfoModel.getLongitude() != 0){
+            //Log.e("Latitude,Longitude===",location.getLatitude()+","+location.getLongitude());
+            //Log.e("Latitude1,Longitude1===",latitude+","+longitude);
+            LatLng latLngNow = new LatLng(ShopInfoModel.getLatitude(), ShopInfoModel.getLongitude());
+            LatLng latLngShop = new LatLng(latitude, longitude);
+            return AMapUtils.calculateLineDistance(latLngNow, latLngShop);
+        }
+        return 0;
     }
 
     @Override

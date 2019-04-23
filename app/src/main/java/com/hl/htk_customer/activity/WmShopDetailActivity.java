@@ -219,6 +219,8 @@ public class WmShopDetailActivity extends BaseActivity implements View.OnClickLi
         ShopInfoModel.setShopName(shopInfoEntity.getData().getShopName());
         ShopInfoModel.setUrl(shopInfoEntity.getData().getLogoUrl());
         ShopInfoModel.setMobilePhone(shopInfoEntity.getData().getMobilePhone());
+        ShopInfoModel.setLongitude(shopInfoEntity.getData().getLongitude());
+        ShopInfoModel.setLatitude(shopInfoEntity.getData().getLatitude());
 
         if (shopInfoEntity.getData().getState() == 0) {
             //休息中

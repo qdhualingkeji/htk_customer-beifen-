@@ -9,6 +9,24 @@ public class ShopInfoModel {
     private  static  String  url = "";
     private static String  shopName = "";
     private static String  mobilePhone = "";
+    private static double longitude = 0.0;
+    private static double latitude = 0.0;
+
+    public static double getLongitude() {
+        return longitude;
+    }
+
+    public static void setLongitude(double longitude) {
+        ShopInfoModel.longitude = longitude;
+    }
+
+    public static double getLatitude() {
+        return latitude;
+    }
+
+    public static void setLatitude(double latitude) {
+        ShopInfoModel.latitude = latitude;
+    }
 
     public static String getMobilePhone() {
         return mobilePhone;
