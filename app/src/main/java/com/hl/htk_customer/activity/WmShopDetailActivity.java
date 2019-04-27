@@ -256,7 +256,7 @@ public class WmShopDetailActivity extends BaseActivity implements View.OnClickLi
         if (TextUtils.isEmpty(gonggao)) {
             tv_gonggao.setText("暂无公告");
         } else {
-            tv_gonggao.setText(gonggao);
+            tv_gonggao.setText("公告："+gonggao);
         }
 
         List<ShopInfoEntity.DataBean.ShopBulletinBean> shopConsumptionActivities = shopInfoEntity.getData().getShopConsumptionActivities();

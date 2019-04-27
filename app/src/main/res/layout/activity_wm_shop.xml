@@ -88,7 +88,7 @@
             android:layout_below="@+id/tv_deliveryFee"
             android:layout_marginRight="40dp"
             android:layout_toRightOf="@+id/sdv_shop_logo"
-            android:maxLines="3"
+            android:maxLines="2"
             android:paddingLeft="10dp"
             android:paddingTop="6dp" />
 

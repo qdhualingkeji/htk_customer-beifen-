@@ -74,8 +74,8 @@ public class WmShopInfoActivity extends BaseActivity implements View.OnClickList
     MyListView listViewAction;
     @Bind(R.id.scrollView)
     ScrollView scrollView;
-    @Bind(R.id.tv_deliveryFee)
-    TextView tvDeliveryFee;
+    //@Bind(R.id.tv_deliveryFee)
+    //TextView tvDeliveryFee;
     @Bind(R.id.tv_gonggao)
     TextView tvGongGao;
     @Bind(R.id.tv_time)
@@ -151,11 +151,13 @@ public class WmShopInfoActivity extends BaseActivity implements View.OnClickList
             tvDistance.setText("未知");
         }
 
+        /*
         if (dataBean.getDeliveryFee() == 0) {
             tvDeliveryFee.setText("配送费：免费");
         } else {
             tvDeliveryFee.setText("配送费：" + dataBean.getDeliveryFee() + "元");
         }
+        */
 
         tvGongGao.setText("公告：" + dataBean.getShopBulletin().getContent());
         tvMobilePhone.setText("订餐电话： " + dataBean.getMobilePhone());
