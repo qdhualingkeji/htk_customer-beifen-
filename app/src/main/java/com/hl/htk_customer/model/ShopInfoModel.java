@@ -11,6 +11,7 @@ public class ShopInfoModel {
     private static String  mobilePhone = "";
     private static double longitude = 0.0;
     private static double latitude = 0.0;
+    private static double startDeliveryPrice = 0.0;
 
     public static double getLongitude() {
         return longitude;
@@ -50,5 +51,13 @@ public class ShopInfoModel {
 
     public static void setShopName(String shopName) {
         ShopInfoModel.shopName = shopName;
+    }
+
+    public static double getStartDeliveryPrice() {
+        return startDeliveryPrice;
+    }
+
+    public static void setStartDeliveryPrice(double startDeliveryPrice) {
+        ShopInfoModel.startDeliveryPrice = startDeliveryPrice;
     }
 }

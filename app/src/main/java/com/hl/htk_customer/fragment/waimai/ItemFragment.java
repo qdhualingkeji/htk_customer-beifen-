@@ -49,6 +49,7 @@ import com.hl.htk_customer.base.BaseFragment;
 import com.hl.htk_customer.entity.ShopDeliveryFeeEntity;
 import com.hl.htk_customer.entity.ShopGoodsEntity;
 import com.hl.htk_customer.model.ProductType;
+import com.hl.htk_customer.model.ShopInfoModel;
 import com.hl.htk_customer.model.ShopProduct;
 import com.hl.htk_customer.model.UserInfoManager;
 import com.hl.htk_customer.utils.AsynClient;
@@ -102,6 +103,10 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
      * 去结算
      */
     private TextView settlement;
+    /**
+     * 满多少元起送
+     */
+    public TextView sdpTV;
     /**
      * 购物车View
      */
@@ -323,6 +328,7 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
         shoppingPrise = (TextView) getView().findViewById(R.id.shoppingPrise);
         shoppingNum = (TextView) getView().findViewById(R.id.shoppingNum);
         settlement = (TextView) getView().findViewById(R.id.settlement);
+        sdpTV = (TextView) getView().findViewById(R.id.sdp_tv);
         mainlist = (ListView) getView().findViewById(R.id.classify_mainlist);
         morelist = (PinnedHeaderListView) getView().findViewById(R.id.classify_morelist);
         shopping_cart = (ImageView) getView().findViewById(R.id.shopping_cart);
@@ -546,6 +552,8 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
         bg_layout.setOnClickListener(this);
         settlement.setOnClickListener(this);
         shopping_cart.setOnClickListener(this);
+
+        sdpTV.setText("￥"+ ShopInfoModel.getStartDeliveryPrice()+"起送");
     }
 
 
@@ -725,6 +733,15 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
         }
         shoppingPrise.setText("¥" + " " + (new DecimalFormat("0.00")).format(sum));
         shoppingNum.setText(String.valueOf(shopNum));
+
+        if(sum>=ShopInfoModel.getStartDeliveryPrice()){
+            sdpTV.setVisibility(TextView.GONE);
+            settlement.setVisibility(TextView.VISIBLE);
+        }
+        else{
+            sdpTV.setVisibility(TextView.VISIBLE);
+            settlement.setVisibility(TextView.GONE);
+        }
     }
 
     @Override

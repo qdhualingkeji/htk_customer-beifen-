@@ -104,6 +104,16 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/sdp_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorGrayPoint"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp" />
+
+            <TextView
                 android:id="@+id/settlement"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -112,7 +122,8 @@
                 android:gravity="center"
                 android:text="@string/settlement"
                 android:textColor="@color/colorWhite"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="gone"/>
 
         </LinearLayout>
 

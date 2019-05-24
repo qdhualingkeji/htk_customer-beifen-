@@ -62,6 +62,7 @@ public class ShopInfoEntity {
 
         private String shopName;
         private String logoUrl;
+        private double startDeliveryPrice;
         private double deliveryFee;
         private double score;
         private double longitude;
@@ -99,6 +100,14 @@ public class ShopInfoEntity {
 
         public void setLogoUrl(String logoUrl) {
             this.logoUrl = logoUrl;
+        }
+
+        public double getStartDeliveryPrice() {
+            return startDeliveryPrice;
+        }
+
+        public void setStartDeliveryPrice(double startDeliveryPrice) {
+            this.startDeliveryPrice = startDeliveryPrice;
         }
 
         public double getDeliveryFee() {
