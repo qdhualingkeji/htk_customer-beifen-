@@ -32,6 +32,7 @@ import com.hl.htk_customer.activity.ChooseAddressActivity;
 import com.hl.htk_customer.activity.LoginActivity;
 import com.hl.htk_customer.activity.MemberPlatformActivity;
 import com.hl.htk_customer.activity.SearchActivity;
+import com.hl.htk_customer.activity.WmShopDetailActivity;
 import com.hl.htk_customer.adapter.MyPageAdapter;
 import com.hl.htk_customer.adapter.RecommendShopListAdapter;
 import com.hl.htk_customer.base.BaseFragment;
@@ -320,29 +321,38 @@ public class WaiMaiFragment extends BaseFragment implements View.OnClickListener
                 myPageAdapter.notifyDataSetChanged();
                 break;
             case R.id.iv_guanggao1:
-//                goWebActivity(wmGGEntity.getData().get(0).getShopId());
-
-                Toast.makeText(getActivity(), "广告推荐功能尚未开启，敬请期待~", Toast.LENGTH_SHORT).show();
-
+                //goWebActivity(wmGGEntity.getData().get(0).getShopId());
+                //Toast.makeText(getActivity(), "广告推荐功能尚未开启，敬请期待~", Toast.LENGTH_SHORT).show();
+                goWmShopDetail();
                 break;
             case R.id.iv_guanggao2:
-//                goWebActivity(wmGGEntity.getData().get(1).getShopId());
-                Toast.makeText(getActivity(), "广告推荐功能尚未开启，敬请期待~", Toast.LENGTH_SHORT).show();
+                //goWebActivity(wmGGEntity.getData().get(1).getShopId());
+                //Toast.makeText(getActivity(), "广告推荐功能尚未开启，敬请期待~", Toast.LENGTH_SHORT).show();
+                goWmShopDetail();
                 break;
             case R.id.iv_guanggao3:
-//                goWebActivity(wmGGEntity.getData().get(2).getShopId());
-                Toast.makeText(getActivity(), "广告推荐功能尚未开启，敬请期待~", Toast.LENGTH_SHORT).show();
+                //goWebActivity(wmGGEntity.getData().get(2).getShopId());
+                //Toast.makeText(getActivity(), "广告推荐功能尚未开启，敬请期待~", Toast.LENGTH_SHORT).show();
+                goWmShopDetail();
                 break;
             case R.id.iv_guanggao4:
-//                goWebActivity(wmGGEntity.getData().get(3).getShopId());
-                Toast.makeText(getActivity(), "广告推荐功能尚未开启，敬请期待~", Toast.LENGTH_SHORT).show();
+                //goWebActivity(wmGGEntity.getData().get(3).getShopId());
+                //Toast.makeText(getActivity(), "广告推荐功能尚未开启，敬请期待~", Toast.LENGTH_SHORT).show();
+                goWmShopDetail();
                 break;
             case R.id.iv_guanggao5:
-//                goWebActivity(wmGGEntity.getData().get(4).getShopId());
-                Toast.makeText(getActivity(), "广告推荐功能尚未开启，敬请期待~", Toast.LENGTH_SHORT).show();
+                //goWebActivity(wmGGEntity.getData().get(4).getShopId());
+                //Toast.makeText(getActivity(), "广告推荐功能尚未开启，敬请期待~", Toast.LENGTH_SHORT).show();
+                goWmShopDetail();
                 break;
         }
 
+    }
+
+    private void goWmShopDetail(){
+        Intent intent = new Intent(mContext, WmShopDetailActivity.class);
+        intent.putExtra("shopId", 113);
+        startActivity(intent);
     }
 
     @Override
