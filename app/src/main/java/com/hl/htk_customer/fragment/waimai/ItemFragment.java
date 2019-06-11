@@ -718,7 +718,7 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
         int shopNum = 0;
         for (ShopProduct pro : productList) {
             sum = DoubleUtil.sum(sum, DoubleUtil.mul((double) pro.getNumber(), Double.parseDouble(pro.getPrice())));
-            priceCanheSum = DoubleUtil.sum(priceCanheSum, Double.parseDouble(pro.getPriceCanhe()));
+            priceCanheSum = DoubleUtil.sum(priceCanheSum, Double.parseDouble(pro.getPriceCanhe())*pro.getNumber());
             shopNum = shopNum + pro.getNumber();
         }
         if (shopNum > 0) {
