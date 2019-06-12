@@ -205,18 +205,32 @@
                         fresco:layout_constraintTop_toBottomOf="@+id/tv_shopName"/>
 
                     <TextView
-                        android:text="配送费"
+                        android:text="餐盒费"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         fresco:layout_constraintLeft_toLeftOf="parent"
                         fresco:layout_constraintTop_toBottomOf="@+id/listView_item"/>
 
                     <TextView
-                        android:id="@+id/tv_price_send"
+                        android:id="@+id/tv_price_canhe"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         fresco:layout_constraintRight_toRightOf="parent"
                         fresco:layout_constraintTop_toBottomOf="@+id/listView_item"/>
+
+                    <TextView
+                        android:text="配送费"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        fresco:layout_constraintLeft_toLeftOf="parent"
+                        fresco:layout_constraintTop_toBottomOf="@+id/tv_price_canhe"/>
+
+                    <TextView
+                        android:id="@+id/tv_price_send"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        fresco:layout_constraintRight_toRightOf="parent"
+                        fresco:layout_constraintTop_toBottomOf="@+id/tv_price_canhe"/>
 
                     <TextView
                         android:id="@+id/tv_call_shop"

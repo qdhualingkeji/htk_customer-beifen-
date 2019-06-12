@@ -73,6 +73,8 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     TextView tvShopName;
     @Bind(R.id.listView_item)
     MyListView listViewItem;
+    @Bind(R.id.tv_price_canhe)
+    TextView tvPriceCanhe;
     @Bind(R.id.tv_price_send)
     TextView tvPriceSend;
     @Bind(R.id.tv_pay_price)
@@ -312,9 +314,12 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
 
         productList = new ArrayList<>();
         List<WmOrderDetailEntity.DataBean.ProductListBean> productLists = wmOrderDetailEntity.getData().getProductList();
+        double priceCanheSum=0.0;
         for (int i = 0; i < productLists.size(); i++) {
             WmOrderDetailEntity.DataBean.ProductListBean productListBean = productLists.get(i);
-            productList.add(new ShopProduct(productListBean.getProductName(), productListBean.getQuantity(), productListBean.getPrice() + "", productListBean.getPriceCanhe()+"", productListBean.getProductId()));
+            double priceCanhe = productListBean.getPriceCanhe()*productListBean.getQuantity();
+            productList.add(new ShopProduct(productListBean.getProductName(), productListBean.getQuantity(), productListBean.getPrice() + "", priceCanhe+"", productListBean.getProductId()));
+            priceCanheSum+=priceCanhe;
         }
         orderItemDetailAdapter.setData(productList);
 
@@ -327,6 +332,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         ivLogo.setImageURI(Uri.parse(data.getLogoUrl()));
         tvShopName.setText(data.getShopName());
         tvPayPrice.setText("实付 ￥" + data.getOrderAmount());
+        tvPriceCanhe.setText(String.valueOf(priceCanheSum));
         tvPriceSend.setText(String.valueOf(data.getDeliveryFee()));
 
         orderState = data.getOrderState();
